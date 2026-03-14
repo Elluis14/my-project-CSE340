@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
 });
 
 // Configuración del puerto
-const PORT = process.env.PORT || 5500;
-app.listen(PORT, () => {
-    console.log(`Servidor activo en http://localhost:${PORT}`);
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Servidor activo en http://0.0.0.0:${PORT}`);
 });
