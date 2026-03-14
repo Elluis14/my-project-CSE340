@@ -1,0 +1,121 @@
+
+/* Paleta de colores profesional */
+:root {
+    --primary: #2563eb;    /* Azul moderno */
+    --dark: #0f172a;       /* Azul casi negro para el header */
+    --light: #f8fafc;      /* Fondo gris muy claro */
+    --text: #1e293b;       /* Texto gris oscuro */
+    --white: #ffffff;
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--light);
+    color: var(--text);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Navbar Moderna */
+header {
+    background-color: var(--dark);
+    padding: 1.5rem 10%;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav a {
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: var(--primary);
+}
+
+nav ul {
+    list-style: none; /* Quita los puntos feos */
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+}
+
+/* Contenido Principal */
+main {
+    flex: 1;
+    max-width: 1000px;
+    margin: 3rem auto;
+    background: var(--white);
+    padding: 3rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5rem;
+    color: var(--dark);
+    margin-bottom: 1rem;
+}
+
+/* Footer Profesional */
+footer {
+    background-color: #e2e8f0;
+    text-align: center;
+    padding: 2rem;
+    margin-top: auto;
+    border-top: 1px solid #cbd5e1;
+    color: #64748b;
+    font-size: 0.9rem;
+}
+
+/* Estilos para la navegación */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo a {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+}
+
+.logo span {
+    color: #3b82f6; /* Color de acento azul */
+}
+
+.nav-links {
+    display: flex;
+    list-style: none; /* ESTO QUITA LOS PUNTOS */
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links a {
+    color: #cbd5e1;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: white;
+}
