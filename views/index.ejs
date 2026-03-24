@@ -1,15 +1,26 @@
-<%- include('partials/head') %>
+<!DOCTYPE html>
+<html lang="en">
+<%- include('partials/head') %> 
 <body>
+  <div id="wrapper">
     <%- include('partials/header') %>
-    
-    <main class="container">
+    <%- include('partials/nav') %>
+
+    <main>
+        <h1>Welcome to CSE Motors!</h1>
+        <!-- Aquí va el contenido del DeLorean que te pasé antes -->
         <section class="hero">
-            <h1>Welcome to my Backend wedside</h1>
-            <p>This is my start project the Backend Development class.</p>
-            <div class="status-badge">State: working from Render</div>
+            <div class="hero-card">
+                <h2>DMC DeLorean</h2>
+                <p>3-cup holders<br>Superman doors<br>Fuzzy dice!</p>
+                <button>Check it out</button>
+            </div>
+            <img src="/images/vehicles/delorean.jpg" alt="DMC DeLorean car">
         </section>
+        <!-- ... resto del contenido ... -->
     </main>
 
     <%- include('partials/footer') %>
+  </div>
 </body>
 </html>

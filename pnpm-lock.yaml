@@ -17,6 +17,9 @@ importers:
       express:
         specifier: ^5.2.1
         version: 5.2.1
+      express-ejs-layouts:
+        specifier: ^2.5.1
+        version: 2.5.1
 
 packages:
 
@@ -107,6 +110,9 @@ packages:
   etag@1.8.1:
     resolution: {integrity: sha512-aIL5Fx7mawVa300al2BnEE4iNvo1qETxLrPI/o05L7z6go7fCw1J6EQmbK4FmJ2AS7kgVF/KEZWufBfdClMcPg==}
     engines: {node: '>= 0.6'}
+
+  express-ejs-layouts@2.5.1:
+    resolution: {integrity: sha512-IXROv9n3xKga7FowT06n1Qn927JR8ZWDn5Dc9CJQoiiaaDqbhW5PDmWShzbpAa2wjWT1vJqaIM1S6vJwwX11gA==}
 
   express@5.2.1:
     resolution: {integrity: sha512-hIS4idWWai69NezIdRt2xFVofaF4j+6INOpJlVOLDO8zXGpUVEVzIYk12UUi2JzjEzWL3IOAxcTubgz9Po0yXw==}
@@ -355,6 +361,8 @@ snapshots:
   escape-html@1.0.3: {}
 
   etag@1.8.1: {}
+
+  express-ejs-layouts@2.5.1: {}
 
   express@5.2.1:
     dependencies:
