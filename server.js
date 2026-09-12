@@ -1,36 +1,64 @@
-/* ******************************************
- * This server.js file is the primary file of the
- * application. It is used to control the project.
- *******************************************/
-/* ***********************
- * Require Statements
- *************************/
-const express = require("express");
-const expressLayouts = require("express-ejs-layouts");
-const env = require("dotenv").config();
+import express from "express";
+import { fileURLToPath } from "url";
+import path from "path";
+
+// Define the application environment
+const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || "production";
+
+// Define the port number
+const PORT = process.env.PORT || 3000;
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const app = express();
-const static = require("./routes/static");
 
+/**
+ * Configure EJS
+ */
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "src/views"));
 
-app.set("view engine", "ejs")
-app.use(expressLayouts)
-app.set("layout", "./layouts/layout") // not at views root
+/**
+ * Configure Express Middleware
+ */
+app.use(express.static(path.join(__dirname, "public")));
 
-/* ***********************
+/**
  * Routes
- *************************/
-app.use(static);
-
-/* ***********************
- * Local Server Information
- * Values from .env (environment) file
- *************************/
-const port = process.env.PORT;
-const host = process.env.HOST;
-
-/* ***********************
- * Log statement to confirm server operation
- *************************/
-app.listen(port, () => {
-    console.log(`app listening on ${host}:${port}`);
+ */
+app.get("/", async (req, res) => {
+  res.render("home", {
+    title: "Home",
+  });
 });
+
+app.get("/organizations", async (req, res) => {
+  res.render("organizations", {
+    title: "Organizations",
+  });
+});
+
+app.get("/projects", async (req, res) => {
+  res.render("projects", {
+    title: "Service Projects",
+  });
+});
+
+app.get("/categories", async (req, res) => {
+  res.render("categories", {
+    title: "Service Project Categories",
+  });
+});
+
+/**
+ * Start Server
+ */
+const startServer = async () => {
+  app.listen(PORT, "0.0.0.0", () => {
+    console.log(`Server is running on port ${PORT}`);
+    console.log(`Environment: ${NODE_ENV}`);
+  });
+};
+
+startServer();

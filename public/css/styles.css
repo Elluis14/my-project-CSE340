@@ -1,0 +1,451 @@
+/* ==============================
+   CSS VARIABLES
+================================ */
+
+:root {
+  --primary: #155e75;
+  --primary-dark: #164e63;
+  --primary-light: #ecfeff;
+
+  --accent: #c2410c;
+
+  --background: #f8fafc;
+  --surface: #ffffff;
+
+  --text: #1e293b;
+  --text-light: #475569;
+
+  --border: #cbd5e1;
+
+  --max-width: 1100px;
+
+  --shadow:
+    0 4px 16px rgba(15, 23, 42, 0.08);
+
+  --radius: 12px;
+}
+
+
+/* ==============================
+   RESET
+================================ */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  background-color: var(--background);
+
+  color: var(--text);
+
+  line-height: 1.6;
+}
+
+img {
+  display: block;
+
+  max-width: 100%;
+
+  height: auto;
+}
+
+
+/* ==============================
+   HEADER
+================================ */
+
+.site-header {
+  background-color: var(--primary);
+
+  color: white;
+}
+
+.header-container {
+  width: min(92%, var(--max-width));
+
+  margin: 0 auto;
+
+  padding: 1.25rem 0;
+}
+
+.site-logo {
+  display: inline-block;
+
+  margin-bottom: 1rem;
+
+  color: white;
+
+  font-size: 1.5rem;
+
+  font-weight: 700;
+
+  text-decoration: none;
+}
+
+
+/* ==============================
+   NAVIGATION
+================================ */
+
+.nav-list {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 0.4rem;
+
+  padding: 0;
+
+  margin: 0;
+
+  list-style: none;
+}
+
+.nav-list a {
+  display: block;
+
+  padding: 0.65rem 0.9rem;
+
+  border-radius: 6px;
+
+  color: white;
+
+  text-decoration: none;
+
+  transition:
+    background-color 0.2s ease;
+}
+
+.nav-list a:hover,
+.nav-list a:focus-visible {
+  background-color: var(--primary-dark);
+}
+
+
+/* ==============================
+   MAIN CONTENT
+================================ */
+
+.page-container {
+  width: min(92%, var(--max-width));
+
+  margin: 0 auto;
+
+  padding: 2rem 0 4rem;
+}
+
+
+/* ==============================
+   HERO
+================================ */
+
+.hero {
+  padding: 3rem 1.5rem;
+
+  border-radius: var(--radius);
+
+  background:
+    linear-gradient(135deg,
+      var(--primary),
+      var(--primary-dark));
+
+  color: white;
+}
+
+.hero-content {
+  max-width: 650px;
+}
+
+.hero h1 {
+  margin-top: 0.4rem;
+
+  margin-bottom: 1rem;
+
+  font-size: clamp(2rem,
+      6vw,
+      3.5rem);
+
+  line-height: 1.1;
+}
+
+.hero p {
+  max-width: 600px;
+}
+
+.eyebrow {
+  margin-bottom: 0.4rem;
+
+  color: var(--accent);
+
+  font-weight: 700;
+
+  letter-spacing: 0.08rem;
+
+  text-transform: uppercase;
+}
+
+.hero .eyebrow {
+  color: #fed7aa;
+}
+
+
+/* ==============================
+   BUTTON
+================================ */
+
+.primary-button {
+  display: inline-block;
+
+  margin-top: 1rem;
+
+  padding:
+    0.8rem 1.2rem;
+
+  border-radius: 6px;
+
+  background-color: white;
+
+  color: var(--primary-dark);
+
+  font-weight: 700;
+
+  text-decoration: none;
+}
+
+.primary-button:hover,
+.primary-button:focus-visible {
+  background-color: var(--primary-light);
+}
+
+
+/* ==============================
+   PAGE HEADINGS
+================================ */
+
+.page-heading {
+  margin-bottom: 2rem;
+}
+
+.page-heading h1 {
+  margin:
+    0.3rem 0 0.8rem;
+
+  font-size: clamp(2rem,
+      5vw,
+      3rem);
+}
+
+.page-heading p {
+  max-width: 700px;
+
+  color: var(--text-light);
+}
+
+
+/* ==============================
+   GRIDS
+================================ */
+
+.card-grid,
+.project-grid,
+.category-grid,
+.organization-grid {
+  display: grid;
+
+  grid-template-columns: 1fr;
+
+  gap: 1.25rem;
+}
+
+.home-section {
+  margin-top: 3rem;
+}
+
+
+/* ==============================
+   CARDS
+================================ */
+
+.content-card,
+.project-card,
+.category-card,
+.organization-card {
+  padding: 1.5rem;
+
+  border:
+    1px solid var(--border);
+
+  border-radius: var(--radius);
+
+  background-color: var(--surface);
+
+  box-shadow: var(--shadow);
+}
+
+.content-card h3,
+.project-card h2,
+.category-card h2,
+.organization-card h2 {
+  margin-top: 0;
+
+  color: var(--primary-dark);
+}
+
+
+/* ==============================
+   ORGANIZATIONS
+================================ */
+
+.organization-card {
+  display: flex;
+
+  align-items: center;
+
+  gap: 1rem;
+}
+
+.organization-card img {
+  width: 80px;
+
+  height: 80px;
+
+  object-fit: contain;
+}
+
+
+/* ==============================
+   CATEGORIES
+================================ */
+
+.category-icon {
+  display: block;
+
+  margin-bottom: 1rem;
+
+  font-size: 2rem;
+}
+
+.category-label {
+  display: inline-block;
+
+  margin-bottom: 1rem;
+
+  padding:
+    0.25rem 0.7rem;
+
+  border-radius: 20px;
+
+  background-color: var(--primary-light);
+
+  color: var(--primary-dark);
+
+  font-size: 0.8rem;
+
+  font-weight: 700;
+}
+
+
+/* ==============================
+   LINKS
+================================ */
+
+.content-card a {
+  color: var(--primary-dark);
+
+  font-weight: 700;
+}
+
+
+/* ==============================
+   FOOTER
+================================ */
+
+.site-footer {
+  padding: 1.5rem;
+
+  background-color: #0f172a;
+
+  color: white;
+
+  text-align: center;
+}
+
+
+/* ==============================
+   ACCESSIBILITY
+================================ */
+
+a:focus-visible,
+button:focus-visible {
+  outline:
+    3px solid #f59e0b;
+
+  outline-offset: 3px;
+}
+
+
+/* ==============================
+   DESKTOP
+================================ */
+
+@media screen and (min-width: 768px) {
+
+  .header-container {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+  }
+
+  .site-logo {
+    margin-bottom: 0;
+  }
+
+  .nav-list {
+    flex-direction: row;
+  }
+
+  .card-grid,
+  .project-grid {
+    grid-template-columns:
+      repeat(3, 1fr);
+  }
+
+  .organization-grid {
+    grid-template-columns:
+      repeat(3, 1fr);
+  }
+
+  .category-grid {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+}
+
+
+/* ==============================
+   LARGE SCREENS
+================================ */
+
+@media screen and (min-width: 1024px) {
+
+  .category-grid {
+    grid-template-columns:
+      repeat(4, 1fr);
+  }
+
+}
