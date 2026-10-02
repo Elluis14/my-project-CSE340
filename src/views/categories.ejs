@@ -2,92 +2,29 @@
 
 <main class="page-container">
 
-  <section class="page-heading">
+  <section class="categories-section">
 
-    <p class="eyebrow">
-      Find Your Cause
+    <h1><%= title %></h1>
+
+    <p class="page-intro">
+      Explore service opportunities by category.
     </p>
 
-    <h1>
-      <%= title %>
-    </h1>
+    <div class="categories-grid">
 
-    <p>
-      Browse service opportunities based on the
-      causes and areas that interest you most.
-    </p>
+      <% categories.forEach((category) => { %>
 
-  </section>
+        <article class="category-card">
 
-  <section class="category-grid">
+          <h2>
+            <%= category.name %>
+          </h2>
 
-    <article class="category-card">
+        </article>
 
-      <span class="category-icon">
-        🌱
-      </span>
+      <% }) %>
 
-      <h2>
-        Environmental
-      </h2>
-
-      <p>
-        Help protect natural spaces, improve local
-        environments, and support sustainability.
-      </p>
-
-    </article>
-
-    <article class="category-card">
-
-      <span class="category-icon">
-        📚
-      </span>
-
-      <h2>
-        Educational
-      </h2>
-
-      <p>
-        Support students, educational programs,
-        tutoring, and learning opportunities.
-      </p>
-
-    </article>
-
-    <article class="category-card">
-
-      <span class="category-icon">
-        🤝
-      </span>
-
-      <h2>
-        Community Service
-      </h2>
-
-      <p>
-        Strengthen neighborhoods by helping people
-        and supporting community initiatives.
-      </p>
-
-    </article>
-
-    <article class="category-card">
-
-      <span class="category-icon">
-        ❤
-      </span>
-
-      <h2>
-        Health and Wellness
-      </h2>
-
-      <p>
-        Participate in projects that support
-        physical health and community wellness.
-      </p>
-
-    </article>
+    </div>
 
   </section>
 

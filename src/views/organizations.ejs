@@ -2,74 +2,40 @@
 
 <main class="page-container">
 
-  <section class="page-heading">
+  <section class="projects-section">
 
-    <p class="eyebrow">
-      Our Partners
+    <h1><%= title %></h1>
+
+    <p class="page-intro">
+      Explore upcoming opportunities to serve our community.
     </p>
 
-    <h1>
-      <%= title %>
-    </h1>
+    <div class="projects-grid">
 
-    <p>
-      Here are a few of our partner organizations.
-    </p>
+      <% projects.forEach((project) => { %>
 
-  </section>
+        <article class="project-card">
 
-  <section class="organization-grid">
+          <h2>
+            <%= new Date(project.date).toLocaleDateString("en-US") %>:
+            <%= project.title %>
+            (<em><%= project.organization_name %></em>)
+          </h2>
 
-    <article class="organization-card">
+          <p>
+            <%= project.description %>
+          </p>
 
-      <img
-        src="/images/brightfuture-logo.png"
-        alt="BrightFuture Builders logo"
-      >
+          <p>
+            <strong>Location:</strong>
+            <%= project.location %>
+          </p>
 
-      <div>
-        <h2>BrightFuture Builders</h2>
+        </article>
 
-        <p>
-          info@brightfuture.org
-        </p>
-      </div>
+      <% }) %>
 
-    </article>
-
-    <article class="organization-card">
-
-      <img
-        src="/images/greenharvest-logo.png"
-        alt="GreenHarvest Growers logo"
-      >
-
-      <div>
-        <h2>GreenHarvest Growers</h2>
-
-        <p>
-          contact@greenharvest.org
-        </p>
-      </div>
-
-    </article>
-
-    <article class="organization-card">
-
-      <img
-        src="/images/unityserve-logo.png"
-        alt="UnityServe Volunteers logo"
-      >
-
-      <div>
-        <h2>UnityServe Volunteers</h2>
-
-        <p>
-          hello@unityserve.org
-        </p>
-      </div>
-
-    </article>
+    </div>
 
   </section>
 

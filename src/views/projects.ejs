@@ -2,75 +2,49 @@
 
 <main class="page-container">
 
-  <section class="page-heading">
+  <section class="projects-section">
 
-    <p class="eyebrow">
-      Volunteer Opportunities
+    <h1><%= title %></h1>
+
+    <p class="page-intro">
+      Explore upcoming opportunities to serve and make
+      a difference in the community.
     </p>
 
-    <h1>
-      <%= title %>
-    </h1>
+    <div class="projects-grid">
 
-    <p>
-      Explore upcoming opportunities to serve
-      and make a positive impact.
-    </p>
+      <% projects.forEach((project) => { %>
 
-  </section>
+        <article class="project-card">
 
-  <section class="project-grid">
+          <h2>
+            <%= project.name %>
+          </h2>
 
-    <article class="project-card">
+          <p>
+            <%= project.description %>
+          </p>
 
-      <span class="category-label">
-        Environmental
-      </span>
+          <p>
+            <strong>Organization:</strong>
+            <%= project.organization_name %>
+          </p>
 
-      <h2>
-        Park Cleanup
-      </h2>
+          <p>
+            <strong>Date:</strong>
+            <%= new Date(project.date).toLocaleDateString("en-US") %>
+          </p>
 
-      <p>
-        Join us to clean up local parks and
-        make them beautiful.
-      </p>
+          <p>
+            <strong>Location:</strong>
+            <%= project.location %>
+          </p>
 
-    </article>
+        </article>
 
-    <article class="project-card">
+      <% }) %>
 
-      <span class="category-label">
-        Community Service
-      </span>
-
-      <h2>
-        Food Drive
-      </h2>
-
-      <p>
-        Help collect and distribute food to
-        those in need.
-      </p>
-
-    </article>
-
-    <article class="project-card">
-
-      <span class="category-label">
-        Educational
-      </span>
-
-      <h2>
-        Community Tutoring
-      </h2>
-
-      <p>
-        Volunteer to tutor students in
-        various subjects.
-      </p>
-
-    </article>
+    </div>
 
   </section>
 
