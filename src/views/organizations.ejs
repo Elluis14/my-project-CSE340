@@ -2,33 +2,39 @@
 
 <main class="page-container">
 
-  <section class="projects-section">
+  <section class="organizations-section">
 
     <h1><%= title %></h1>
 
     <p class="page-intro">
-      Explore upcoming opportunities to serve our community.
+      Here are a few of our partner organizations.
     </p>
 
-    <div class="projects-grid">
+    <div class="organizations-grid">
 
-      <% projects.forEach((project) => { %>
+      <% organizations.forEach((organization) => { %>
 
-        <article class="project-card">
+        <article class="organization-card">
+
+          <img
+            src="/images/<%= organization.logo_filename %>"
+            alt="<%= organization.name %> logo"
+            class="organization-logo"
+          >
 
           <h2>
-            <%= new Date(project.date).toLocaleDateString("en-US") %>:
-            <%= project.title %>
-            (<em><%= project.organization_name %></em>)
+            <%= organization.name %>
           </h2>
 
           <p>
-            <%= project.description %>
+            <%= organization.description %>
           </p>
 
           <p>
-            <strong>Location:</strong>
-            <%= project.location %>
+            <strong>Contact:</strong>
+            <a href="mailto:<%= organization.contact_email %>">
+              <%= organization.contact_email %>
+            </a>
           </p>
 
         </article>
