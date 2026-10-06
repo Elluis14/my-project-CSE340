@@ -1,0 +1,81 @@
+<%- include("partials/header", { title: title }) %>
+
+<main class="page-container">
+
+  <section class="category-details-section">
+
+    <% if (categoryDetails) { %>
+
+      <h1>
+        <%= categoryDetails.name %>
+      </h1>
+
+      <p class="page-intro">
+        Explore service projects in this category.
+      </p>
+
+
+      <section class="projects-section">
+
+        <h2>Service Projects</h2>
+
+        <% if (projects.length > 0) { %>
+
+          <div class="projects-grid">
+
+            <% projects.forEach((project) => { %>
+
+              <article class="project-card">
+
+                <h3>
+                  <a href="/project/<%= project.project_id %>">
+                    <%= project.title %>
+                  </a>
+                </h3>
+
+                <p>
+                  <%= project.description %>
+                </p>
+
+                <p>
+                  <strong>Date:</strong>
+                  <%= new Date(project.date).toLocaleDateString("en-US") %>
+                </p>
+
+                <p>
+                  <strong>Location:</strong>
+                  <%= project.location %>
+                </p>
+
+              </article>
+
+            <% }) %>
+
+          </div>
+
+        <% } else { %>
+
+          <p>
+            There are currently no projects in this category.
+          </p>
+
+        <% } %>
+
+      </section>
+
+
+    <% } else { %>
+
+      <h1>Category Not Found</h1>
+
+      <p>
+        The requested category could not be found.
+      </p>
+
+    <% } %>
+
+  </section>
+
+</main>
+
+<%- include("partials/footer") %>

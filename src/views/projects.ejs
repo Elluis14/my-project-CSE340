@@ -18,7 +18,9 @@
         <article class="project-card">
 
           <h2>
-            <%= project.name %>
+            <a href="/project/<%= project.project_id %>">
+              <%= project.title %>
+            </a>
           </h2>
 
           <p>

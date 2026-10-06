@@ -1,12 +1,15 @@
 import db from "./db.js";
 
+
+// Get all organizations
 const getAllOrganizations = async () => {
   const query = `
-    SELECT organization_id,
-           name,
-           description,
-           contact_email,
-           logo_filename
+    SELECT
+      organization_id,
+      name,
+      description,
+      contact_email,
+      logo_filename
     FROM public.organization;
   `;
 
@@ -15,4 +18,35 @@ const getAllOrganizations = async () => {
   return result.rows;
 };
 
-export { getAllOrganizations };
+
+// Get one organization by its ID
+const getOrganizationDetails = async (organizationId) => {
+  const query = `
+    SELECT
+      organization_id,
+      name,
+      description,
+      contact_email,
+      logo_filename
+    FROM public.organization
+    WHERE organization_id = $1;
+  `;
+
+  const queryParams = [organizationId];
+
+  const result = await db.query(
+    query,
+    queryParams
+  );
+
+  return result.rows.length > 0
+    ? result.rows[0]
+    : null;
+};
+
+
+// Export model functions
+export {
+  getAllOrganizations,
+  getOrganizationDetails
+};

@@ -1,98 +1,165 @@
-import "dotenv/config";
-import express from "express";
-import { fileURLToPath } from "url";
-import path from "path";
+import express from 'express';
+import { fileURLToPath } from 'url';
+import path from 'path';
 
-import { testConnection } from "./src/models/db.js";
-import { getAllOrganizations } from "./src/models/organizations.js";
-import { getAllProjects } from "./src/models/projects.js";
-import { getAllCategories } from "./src/models/categories.js";
+import { testConnection } from './src/models/db.js';
+import router from './src/routes.js';
 
+
+// Define the application environment
 const NODE_ENV =
-  process.env.NODE_ENV?.toLowerCase() || "production";
+  process.env.NODE_ENV?.toLowerCase() || 'production';
 
 
+// Define the port number
 const PORT = process.env.PORT || 3000;
 
+
+// Create __filename and __dirname
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+
+// Create Express application
 const app = express();
 
-/**
- * Configure EJS
- */
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "src/views"));
 
-/**
- * Configure Express Middleware
- */
-app.use(express.static(path.join(__dirname, "public")));
-
-/**
- * Routes
+/*
+ * Configure Express middleware
  */
 
-// Home
-app.get("/", async (req, res) => {
-  res.render("home", {
-    title: "Home",
-  });
+// Serve static files from the public directory
+app.use(
+  express.static(
+    path.join(__dirname, 'public')
+  )
+);
+
+
+// Set EJS as the templating engine
+app.set('view engine', 'ejs');
+
+
+// Tell Express where to find the views
+app.set(
+  'views',
+  path.join(__dirname, 'src/views')
+);
+
+
+// Middleware to log all incoming requests
+app.use((req, res, next) => {
+
+  if (NODE_ENV === 'development') {
+    console.log(`${req.method} ${req.url}`);
+  }
+
+  next();
+
 });
 
-// Organizations
-app.get("/organizations", async (req, res) => {
-  const organizations = await getAllOrganizations();
 
-  const title = "Our Partner Organizations";
+// Middleware to make NODE_ENV available
+// to all EJS templates
+app.use((req, res, next) => {
 
-  res.render("organizations", {
-    title,
-    organizations,
-  });
+  res.locals.NODE_ENV = NODE_ENV;
+
+  next();
+
 });
 
-// Service Projects
-app.get("/projects", async (req, res) => {
-  const projects = await getAllProjects();
 
-  const title = "Service Projects";
+// Use the imported router to handle routes
+app.use(router);
 
-  res.render("projects", {
-    title,
-    projects,
-  });
+
+// Catch-all route for 404 errors
+app.use((req, res, next) => {
+
+  const err = new Error('Page Not Found');
+
+  err.status = 404;
+
+  next(err);
+
 });
 
-// Categories
-app.get("/categories", async (req, res) => {
-  const categories = await getAllCategories();
 
-  const title = "Service Project Categories";
+// Global error handler
+app.use((err, req, res, next) => {
 
-  res.render("categories", {
-    title,
-    categories,
-  });
+  // Log error details for debugging
+  console.error(
+    'Error occurred:',
+    err.message
+  );
+
+  console.error(
+    'Stack trace:',
+    err.stack
+  );
+
+
+  // Determine status
+  const status = err.status || 500;
+
+
+  // Determine which error template to use
+  const template =
+    status === 404
+      ? '404'
+      : '500';
+
+
+  // Prepare data for the EJS template
+  const context = {
+
+    title:
+      status === 404
+        ? 'Page Not Found'
+        : 'Server Error',
+
+    error: err.message,
+
+    stack: err.stack
+
+  };
+
+
+  // Render the appropriate error page
+  res
+    .status(status)
+    .render(
+      `errors/${template}`,
+      context
+    );
+
 });
 
-/**
- * Start Server
- */
+
+// Start server
 app.listen(PORT, async () => {
+
   try {
+
     await testConnection();
 
     console.log(
       `Server is running at http://127.0.0.1:${PORT}`
     );
 
-    console.log(`Environment: ${NODE_ENV}`);
+    console.log(
+      `Environment: ${NODE_ENV}`
+    );
+
   } catch (error) {
+
     console.error(
-      "Error connecting to the database:",
+      'Error connecting to the database:',
       error
     );
+
   }
+
 });

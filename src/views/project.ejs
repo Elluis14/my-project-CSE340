@@ -1,0 +1,83 @@
+<%- include("partials/header", { title: title }) %>
+
+<main class="page-container">
+
+  <section class="project-details-section">
+
+    <% if (projectDetails) { %>
+
+      <h1>
+        <%= projectDetails.title %>
+      </h1>
+
+      <p>
+        <%= projectDetails.description %>
+      </p>
+
+      <p>
+        <strong>Organization:</strong>
+
+        <a href="/organization/<%= projectDetails.organization_id %>">
+          <%= projectDetails.organization_name %>
+        </a>
+      </p>
+
+      <p>
+        <strong>Date:</strong>
+        <%= new Date(projectDetails.date).toLocaleDateString("en-US") %>
+      </p>
+
+      <p>
+        <strong>Location:</strong>
+        <%= projectDetails.location %>
+      </p>
+
+
+      <section class="project-categories">
+
+        <h2>Categories</h2>
+
+        <% if (categories.length > 0) { %>
+
+          <div class="categories-grid">
+
+            <% categories.forEach((category) => { %>
+
+              <article class="category-card">
+
+                <a href="/category/<%= category.category_id %>">
+                  <%= category.name %>
+                </a>
+
+              </article>
+
+            <% }) %>
+
+          </div>
+
+        <% } else { %>
+
+          <p>
+            This project does not have any categories.
+          </p>
+
+        <% } %>
+
+      </section>
+
+
+    <% } else { %>
+
+      <h1>Project Not Found</h1>
+
+      <p>
+        The requested project could not be found.
+      </p>
+
+    <% } %>
+
+  </section>
+
+</main>
+
+<%- include("partials/footer") %>
