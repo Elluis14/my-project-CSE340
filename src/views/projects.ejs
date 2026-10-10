@@ -1,3 +1,4 @@
+
 <%- include("partials/header", { title: title }) %>
 
 <main class="page-container">
@@ -11,42 +12,78 @@
       a difference in the community.
     </p>
 
-    <div class="projects-grid">
+    <p>
+      <a href="/new-project" class="btn btn-primary">
+        Add New Project
+      </a>
+    </p>
 
-      <% projects.forEach((project) => { %>
+    <% if (projects.length === 0) { %>
 
-        <article class="project-card">
+      <p>
+        No service projects are currently available.
+      </p>
 
-          <h2>
-            <a href="/project/<%= project.project_id %>">
-              <%= project.title %>
-            </a>
-          </h2>
+    <% } else { %>
 
-          <p>
-            <%= project.description %>
-          </p>
+      <div class="projects-grid">
 
-          <p>
-            <strong>Organization:</strong>
-            <%= project.organization_name %>
-          </p>
+        <% projects.forEach((project) => { %>
 
-          <p>
-            <strong>Date:</strong>
-            <%= new Date(project.date).toLocaleDateString("en-US") %>
-          </p>
+          <article class="project-card">
 
-          <p>
-            <strong>Location:</strong>
-            <%= project.location %>
-          </p>
+            <h2>
+              <a href="/project/<%= project.project_id %>">
+                <%= project.title %>
+              </a>
+            </h2>
 
-        </article>
+            <p>
+              <%= project.description %>
+            </p>
 
-      <% }) %>
+            <p>
+              <strong>Organization:</strong>
+              <%= project.organization_name %>
+            </p>
 
-    </div>
+            <p>
+              <strong>Date:</strong>
+              <%= new Date(project.date).toLocaleDateString("en-US", {
+                timeZone: "UTC"
+              }) %>
+            </p>
+
+            <p>
+              <strong>Location:</strong>
+              <%= project.location %>
+            </p>
+
+            <div class="project-actions">
+
+              <a
+                href="/project/<%= project.project_id %>"
+                class="btn"
+              >
+                View Details
+              </a>
+
+              <a
+                href="/edit-project/<%= project.project_id %>"
+                class="btn btn-secondary"
+              >
+                Edit Project
+              </a>
+
+            </div>
+
+          </article>
+
+        <% }) %>
+
+      </div>
+
+    <% } %>
 
   </section>
 

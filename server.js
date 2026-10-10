@@ -1,4 +1,5 @@
 import express from 'express';
+import session from 'express-session';
 import { fileURLToPath } from 'url';
 import path from 'path';
 
@@ -163,3 +164,22 @@ app.listen(PORT, async () => {
   }
 
 });
+
+/*
+congure express middleware*/
+
+app.use(express.urlencoded({ extended: true}));
+
+app.use(express.json());
+
+// Configure sessions
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    maxAge: 60 * 60 * 1000,
+    httpOnly: true,
+    secure: NODE_ENV === 'production'
+  }
+}));

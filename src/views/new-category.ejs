@@ -1,0 +1,51 @@
+<%- include("partials/header", { title: title }) %>
+
+<main class="page-container">
+  <h1>Add New Category</h1>
+
+  <p>
+    Use this form to add a new service category.
+  </p>
+
+  <% if (errors && errors.length > 0) { %>
+    <div class="form-errors" role="alert">
+      <h2>Please correct the following errors:</h2>
+      <ul>
+        <% errors.forEach(error => { %>
+          <li><%= error.msg %></li>
+        <% }) %>
+      </ul>
+    </div>
+  <% } %>
+
+  <form action="/new-category" method="POST">
+
+    <div class="form-group">
+      <label for="name">Category Name</label>
+
+      <input
+        type="text"
+        id="name"
+        name="name"
+        value="<%= name %>"
+        maxlength="100"
+        required
+      >
+
+      <small>
+        Enter a category name (maximum 100 characters).
+      </small>
+    </div>
+
+    <button type="submit">
+      Add Category
+    </button>
+
+  </form>
+
+  <p>
+    <a href="/categories">Back to Categories</a>
+  </p>
+</main>
+
+<%- include('partials/footer') %>
