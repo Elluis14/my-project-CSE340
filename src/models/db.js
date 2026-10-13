@@ -1,9 +1,11 @@
+import 'dotenv/config';
 import { Pool } from "pg";
 
 
 // Create the PostgreSQL connection pool
 const pool = new Pool({
-  connectionString: process.env.DB_URL
+  connectionString: process.env.DB_URL,
+  connectionTimeoutMillis: 10000
 });
 
 

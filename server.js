@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import express from 'express';
 import session from 'express-session';
 import { fileURLToPath } from 'url';
@@ -13,7 +14,11 @@ const NODE_ENV =
 
 
 // Define the port number
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
+
+if (!process.env.DB_URL || !process.env.SESSION_SECRET) {
+  throw new Error('DB_URL and SESSION_SECRET must be configured in Secrets.');
+}
 
 
 // Create __filename and __dirname
@@ -24,6 +29,20 @@ const __dirname = path.dirname(__filename);
 // Create Express application
 const app = express();
 
+// Replit terminates HTTPS at its reverse proxy.
+app.set('trust proxy', 1);
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    maxAge: 60 * 60 * 1000,
+    httpOnly: true,
+    secure: NODE_ENV === 'production'
+  }
+}));
 
 /*
  * Configure Express middleware
@@ -139,47 +158,18 @@ app.use((err, req, res, next) => {
 });
 
 
-// Start server
-app.listen(PORT, async () => {
-
-  try {
-
-    await testConnection();
-
+// Confirm the database is reachable before accepting requests.
+try {
+  await testConnection();
+  app.listen(PORT, '0.0.0.0', () => {
     console.log(
-      `Server is running at http://127.0.0.1:${PORT}`
+      `Server is running on port ${PORT}`
     );
-
     console.log(
       `Environment: ${NODE_ENV}`
     );
-
-  } catch (error) {
-
-    console.error(
-      'Error connecting to the database:',
-      error
-    );
-
-  }
-
-});
-
-/*
-congure express middleware*/
-
-app.use(express.urlencoded({ extended: true}));
-
-app.use(express.json());
-
-// Configure sessions
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-    maxAge: 60 * 60 * 1000,
-    httpOnly: true,
-    secure: NODE_ENV === 'production'
-  }
-}));
+  });
+} catch {
+  console.error('Startup failed: check the PostgreSQL connection configured in DB_URL.');
+  process.exit(1);
+}
