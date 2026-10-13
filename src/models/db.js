@@ -5,6 +5,7 @@ import { Pool } from "pg";
 // Create the PostgreSQL connection pool
 const pool = new Pool({
   connectionString: process.env.DB_URL,
+  ssl: { rejectUnauthorized: true },
   connectionTimeoutMillis: 10000
 });
 
