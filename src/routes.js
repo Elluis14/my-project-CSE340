@@ -22,7 +22,8 @@ import {
   processNewOrganizationForm,
   showEditOrganizationForm,
   processEditOrganizationForm,
-  organizationValidation
+  newOrganizationValidation,
+  editOrganizationValidation
 } from './controllers/organizations.js';
 
 
@@ -101,7 +102,7 @@ router.get(
 // Create organization
 router.post(
   '/new-organization',
-  organizationValidation,
+  newOrganizationValidation,
   processNewOrganizationForm
 );
 
@@ -114,7 +115,7 @@ router.get(
 // Update organization
 router.post(
   '/edit-organization/:id',
-  organizationValidation,
+  editOrganizationValidation,
   processEditOrganizationForm
 );
 

@@ -6,6 +6,12 @@
 
     <% if (organizationDetails) { %>
 
+      <div class="page-actions">
+        <a href="/edit-organization/<%= organizationDetails.organization_id %>" class="btn btn-primary">
+          Edit Organization
+        </a>
+      </div>
+
       <div class="organization-details">
 
         <img

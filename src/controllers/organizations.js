@@ -9,36 +9,27 @@ import { getProjectsByOrganizationId } from "../models/projects.js";
 
 import { body, validationResult } from "express-validator";
 
-// Organization form validation
-const organizationValidation = [
-  body("name")
-    .trim()
-    .notEmpty()
-    .withMessage("Organization name is required.")
-    .bail()
-    .isLength({ min: 3, max: 150 })
+// Shared validation for creating and editing organizations
+const organizationFieldsValidation = [
+  body("name").trim().notEmpty().withMessage("Organization name is required.")
+    .bail().isLength({ min: 3, max: 150 })
     .withMessage("Organization name must be between 3 and 150 characters."),
-
   body("description").trim().notEmpty().withMessage("Description is required."),
+  body("contact_email").trim().notEmpty().withMessage("Contact email is required.")
+    .bail().isEmail().withMessage("Enter a valid email address.")
+    .bail().isLength({ max: 255 }).withMessage("Email must not exceed 255 characters."),
+];
 
-  body("contact_email")
-    .trim()
-    .notEmpty()
-    .withMessage("Contact email is required.")
-    .bail()
-    .isEmail()
-    .withMessage("Enter a valid email address.")
-    .bail()
-    .isLength({ max: 255 })
-    .withMessage("Email must not exceed 255 characters."),
+// Creation does not request a logo filename.
+const newOrganizationValidation = organizationFieldsValidation;
 
-  body("logo_filename")
-    .trim()
-    .notEmpty()
-    .withMessage("Logo filename is required.")
-    .bail()
-    .isLength({ max: 255 })
-    .withMessage("Logo filename must not exceed 255 characters."),
+// Editing allows the existing logo filename to be changed.
+const editOrganizationValidation = [
+  ...organizationFieldsValidation,
+  body("logo_filename").trim().notEmpty().withMessage("Logo filename is required.")
+    .bail().isLength({ max: 255 }).withMessage("Logo filename must not exceed 255 characters.")
+    .bail().matches(/^[a-zA-Z0-9][a-zA-Z0-9._-]*\.(png|jpg|jpeg|webp|gif)$/i)
+    .withMessage("Enter an image filename (png, jpg, jpeg, webp, or gif), without folders."),
 ];
 
 // Show all organizations
@@ -80,7 +71,6 @@ const showNewOrganizationForm = (req, res) => {
       name: "",
       description: "",
       contact_email: "",
-      logo_filename: "",
     },
     errors: [],
   });
@@ -94,7 +84,7 @@ const processNewOrganizationForm = async (req, res) => {
     name: req.body.name ?? "",
     description: req.body.description ?? "",
     contact_email: req.body.contact_email ?? "",
-    logo_filename: req.body.logo_filename ?? "",
+    logo_filename: "default-logo.png",
   };
 
   if (!results.isEmpty()) {
@@ -178,5 +168,6 @@ export {
   processNewOrganizationForm,
   showEditOrganizationForm,
   processEditOrganizationForm,
-  organizationValidation,
+  newOrganizationValidation,
+  editOrganizationValidation,
 };
