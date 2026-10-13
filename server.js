@@ -34,6 +34,7 @@ app.set('trust proxy', 1);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(session({
+  name: 'cse340.sid',
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
@@ -89,6 +90,19 @@ app.use((req, res, next) => {
 
 });
 
+
+// Authentication state and one-time messages for EJS views.
+app.use((req, res, next) => {
+  const user = req.session.user || null;
+  res.locals.isLoggedIn = Boolean(user);
+  res.locals.isAdmin = user?.role_name === 'admin';
+  res.locals.currentUser = user;
+  res.locals.errorMessage = req.session.errorMessage || null;
+  res.locals.successMessage = req.session.successMessage || null;
+  delete req.session.errorMessage;
+  delete req.session.successMessage;
+  next();
+});
 
 // Use the imported router to handle routes
 app.use(router);

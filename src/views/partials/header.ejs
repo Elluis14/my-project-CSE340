@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,6 +53,52 @@
               Categories
             </a>
           </li>
+
+          <!-- W05: Authentication navigation -->
+
+          <% if (isLoggedIn) { %>
+
+            <li>
+              <a href="/dashboard">
+                Dashboard
+              </a>
+            </li>
+
+            <% if (isAdmin) { %>
+              <li>
+                <a href="/users">
+                  Users
+                </a>
+              </li>
+            <% } %>
+
+            <li>
+              <form
+                action="/logout"
+                method="POST"
+                class="logout-form"
+              >
+                <button type="submit">
+                  Logout
+                </button>
+              </form>
+            </li>
+
+          <% } else { %>
+
+            <li>
+              <a href="/login">
+                Login
+              </a>
+            </li>
+
+            <li>
+              <a href="/register">
+                Register
+              </a>
+            </li>
+
+          <% } %>
 
         </ul>
 

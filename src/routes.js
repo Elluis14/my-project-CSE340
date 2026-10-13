@@ -57,6 +57,19 @@ import {
 } from './controllers/categories.js';
 
 
+import {
+  showUserRegistrationForm,
+  processUserRegistrationForm,
+  showLoginForm,
+  processLoginForm,
+  processLogout,
+  requireLogin,
+  requireRole,
+  showDashboard,
+  showUsers
+} from './controllers/users.js';
+
+
 // ========================================
 // ERROR CONTROLLER
 // ========================================
@@ -221,6 +234,54 @@ router.get(
   testErrorPage
 );
 
+
+// ========================================
+// W05 - AUTHENTICATION ROUTES
+// ========================================
+
+// Registration
+router.get(
+  '/register',
+  showUserRegistrationForm
+);
+
+router.post(
+  '/register',
+  processUserRegistrationForm
+);
+
+// Login
+router.get(
+  '/login',
+  showLoginForm
+);
+
+router.post(
+  '/login',
+  processLoginForm
+);
+
+// Logout
+router.post(
+  '/logout',
+  requireLogin,
+  processLogout
+);
+
+// Dashboard - authenticated users only
+router.get(
+  '/dashboard',
+  requireLogin,
+  showDashboard
+);
+
+// User list - administrators only
+router.get(
+  '/users',
+  requireLogin,
+  requireRole('admin'),
+  showUsers
+);
 
 // ========================================
 // EXPORT ROUTER

@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+</head>
+<body>
+  <main>
+    <h1>Dashboard</h1>
+
+    <% if (successMessage) { %>
+      <p role="status"><%= successMessage %></p>
+    <% } %>
+
+    <% if (errorMessage) { %>
+      <p role="alert"><%= errorMessage %></p>
+    <% } %>
+
+    <h2>Welcome, <%= user.name %>!</h2>
+
+    <p>Email: <%= user.email %></p>
+    <p>Role: <%= user.role_name %></p>
+
+    <% if (isAdmin) { %>
+      <section>
+        <h2>Administration</h2>
+        <a href="/users">View Registered Users</a>
+      </section>
+    <% } %>
+
+    <p><a href="/">Back to Home</a></p>
+
+    <form action="/logout" method="POST">
+      <button type="submit">Log Out</button>
+    </form>
+  </main>
+</body>
+</html>
