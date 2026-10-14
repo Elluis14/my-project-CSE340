@@ -11,11 +11,13 @@
       Here are a few of our partner organizations.
     </p>
 
-    <div class="page-actions">
-      <a href="/new-organization" class="btn btn-primary">
-        + Add New Organization
-      </a>
-    </div>
+    <% if (isAdmin) { %>
+      <div class="page-actions">
+        <a href="/new-organization" class="btn btn-primary">
+          + Add New Organization
+        </a>
+      </div>
+    <% } %>
 
     <div class="organizations-grid">
 
@@ -45,17 +47,6 @@
               <%= organization.contact_email %>
             </a>
           </p>
-
-          <div class="organization-actions">
-
-            <a
-              href="/organization/<%= organization.organization_id %>"
-              class="btn btn-secondary"
-            >
-              View Details
-            </a>
-
-          </div>
 
         </article>
 

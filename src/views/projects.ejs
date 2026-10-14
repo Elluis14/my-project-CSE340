@@ -12,11 +12,13 @@
       a difference in the community.
     </p>
 
-    <p>
-      <a href="/new-project" class="btn btn-primary">
-        Add New Project
-      </a>
-    </p>
+    <% if (isAdmin) { %>
+      <p>
+        <a href="/new-project" class="btn btn-primary">
+          Add New Project
+        </a>
+      </p>
+    <% } %>
 
     <% if (projects.length === 0) { %>
 

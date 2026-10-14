@@ -6,11 +6,13 @@
 
     <% if (projectDetails) { %>
 
-      <div class="page-actions">
-        <a href="/edit-project/<%= projectDetails.project_id %>" class="btn btn-primary">
-          Edit Project
-        </a>
-      </div>
+      <% if (isAdmin) { %>
+        <div class="page-actions">
+          <a href="/edit-project/<%= projectDetails.project_id %>" class="btn btn-primary">
+            Edit Project
+          </a>
+        </div>
+      <% } %>
 
       <h1>
         <%= projectDetails.title %>

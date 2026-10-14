@@ -96,133 +96,123 @@ router.get(
 );
 
 
-// ========================================
-// ORGANIZATION ROUTES
-// ========================================
 
-// Show all organizations
-router.get(
-  '/organizations',
-  showOrganizationsPage
-);
+ // ========================================
+ // ORGANIZATION ROUTES
+ // ========================================
 
-// Show new organization form
-router.get(
-  '/new-organization',
-  showNewOrganizationForm
-);
+ router.get('/organizations', showOrganizationsPage);
 
-// Create organization
-router.post(
-  '/new-organization',
-  newOrganizationValidation,
-  processNewOrganizationForm
-);
+ router.get(
+   '/new-organization',
+   requireLogin,
+   requireRole('admin'),
+   showNewOrganizationForm
+ );
 
-// Show edit organization form
-router.get(
-  '/edit-organization/:id',
-  showEditOrganizationForm
-);
+ router.post(
+   '/new-organization',
+   requireLogin,
+   requireRole('admin'),
+   newOrganizationValidation,
+   processNewOrganizationForm
+ );
 
-// Update organization
-router.post(
-  '/edit-organization/:id',
-  editOrganizationValidation,
-  processEditOrganizationForm
-);
+ router.get(
+   '/edit-organization/:id',
+   requireLogin,
+   requireRole('admin'),
+   showEditOrganizationForm
+ );
 
-// Show organization details
-router.get(
-  '/organization/:id',
-  showOrganizationDetailsPage
-);
+ router.post(
+   '/edit-organization/:id',
+   requireLogin,
+   requireRole('admin'),
+   editOrganizationValidation,
+   processEditOrganizationForm
+ );
+
+ router.get('/organization/:id', showOrganizationDetailsPage);
 
 
-// ========================================
-// PROJECT ROUTES
-// ========================================
+ // ========================================
+ // PROJECT ROUTES
+ // ========================================
 
-// Show all projects
-router.get(
-  '/projects',
-  showProjectsPage
-);
+ router.get('/projects', showProjectsPage);
 
-// Show new project form
-router.get(
-  '/new-project',
-  showNewProjectForm
-);
+ router.get(
+   '/new-project',
+   requireLogin,
+   requireRole('admin'),
+   showNewProjectForm
+ );
 
-// Create project
-router.post(
-  '/new-project',
-  projectValidation,
-  processNewProjectForm
-);
+ router.post(
+   '/new-project',
+   requireLogin,
+   requireRole('admin'),
+   projectValidation,
+   processNewProjectForm
+ );
 
-// Show edit project form
-router.get(
-  '/edit-project/:id',
-  showEditProjectForm
-);
+ router.get(
+   '/edit-project/:id',
+   requireLogin,
+   requireRole('admin'),
+   showEditProjectForm
+ );
 
-// Update project
-router.post(
-  '/edit-project/:id',
-  projectValidation,
-  processEditProjectForm
-);
+ router.post(
+   '/edit-project/:id',
+   requireLogin,
+   requireRole('admin'),
+   projectValidation,
+   processEditProjectForm
+ );
 
-// Show project details
-router.get(
-  '/project/:id',
-  showProjectDetailsPage
-);
+ router.get('/project/:id', showProjectDetailsPage);
 
 
-// ========================================
-// CATEGORY ROUTES
-// ========================================
+ // ========================================
+ // CATEGORY ROUTES
+ // ========================================
 
-// Show all categories
-router.get(
-  '/categories',
-  showCategoriesPage
-);
+ router.get('/categories', showCategoriesPage);
 
-// Show new category form
-router.get(
-  '/new-category',
-  showNewCategoryForm
-);
+ router.get(
+   '/new-category',
+   requireLogin,
+   requireRole('admin'),
+   showNewCategoryForm
+ );
 
-// Create category
-router.post(
-  '/new-category',
-  categoryValidation,
-  processNewCategoryForm
-);
+ router.post(
+   '/new-category',
+   requireLogin,
+   requireRole('admin'),
+   categoryValidation,
+   processNewCategoryForm
+ );
 
-// Show edit category form
-router.get(
-  '/edit-category/:id',
-  showEditCategoryForm
-);
+ router.get(
+   '/edit-category/:id',
+   requireLogin,
+   requireRole('admin'),
+   showEditCategoryForm
+ );
 
-// Update category
-router.post(
-  '/edit-category/:id',
-  categoryValidation,
-  processEditCategoryForm
-);
+ router.post(
+   '/edit-category/:id',
+   requireLogin,
+   requireRole('admin'),
+   categoryValidation,
+   processEditCategoryForm
+ );
 
-// Show category details
-router.get(
-  '/category/:id',
-  showCategoryDetailsPage
-);
+ router.get('/category/:id', showCategoryDetailsPage);
+
 
 
 // ========================================

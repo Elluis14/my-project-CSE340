@@ -6,11 +6,13 @@
 
     <% if (categoryDetails) { %>
 
-      <div class="page-actions">
-        <a href="/edit-category/<%= categoryDetails.category_id %>" class="btn btn-primary">
-          Edit Category
-        </a>
-      </div>
+      <% if (isAdmin) { %>
+        <div class="page-actions">
+          <a href="/edit-category/<%= categoryDetails.category_id %>" class="btn btn-primary">
+            Edit Category
+          </a>
+        </div>
+      <% } %>
 
       <h1>
         <%= categoryDetails.name %>
