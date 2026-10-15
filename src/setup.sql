@@ -254,3 +254,23 @@ VALUES
     (13, 3),  -- Clothing Donation Drive -> Community Service
     (14, 2),  -- Community Literacy Night -> Educational
     (15, 3);  -- Holiday Care Packages -> Community Service
+-- ============================================
+-- W06: Volunteering Feature
+-- Many-to-many relationship: users and projects
+-- ============================================
+
+CREATE TABLE IF NOT EXISTS volunteer (
+    user_id INTEGER NOT NULL,
+    project_id INTEGER NOT NULL,
+    volunteered_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    PRIMARY KEY (user_id, project_id),
+
+    FOREIGN KEY (user_id)
+        REFERENCES users(user_id)
+        ON DELETE CASCADE,
+
+    FOREIGN KEY (project_id)
+        REFERENCES service_project(project_id)
+        ON DELETE CASCADE
+);
