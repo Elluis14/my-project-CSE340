@@ -1,15 +1,22 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
   <title><%= title %></title>
 </head>
+
 <body>
+
   <main>
+
     <h1>Dashboard</h1>
 
+    <!-- Success and error messages -->
     <% if (successMessage) { %>
       <p role="status"><%= successMessage %></p>
     <% } %>
@@ -18,23 +25,127 @@
       <p role="alert"><%= errorMessage %></p>
     <% } %>
 
-    <h2>Welcome, <%= user.name %>!</h2>
+    <!-- W05: User information -->
+    <section>
+      <h2>Welcome, <%= user.name %>!</h2>
 
-    <p>Email: <%= user.email %></p>
-    <p>Role: <%= user.role_name %></p>
+      <p>
+        <strong>Email:</strong>
+        <%= user.email %>
+      </p>
 
+      <p>
+        <strong>Role:</strong>
+        <%= user.role_name %>
+      </p>
+    </section>
+
+    <!-- =====================================
+         W06: MY VOLUNTEERING
+         ===================================== -->
+
+    <section class="volunteering-section">
+
+      <h2>My Volunteering</h2>
+
+      <% if (volunteerProjects.length > 0) { %>
+
+        <p>
+          You are volunteering for
+          <strong><%= volunteerProjects.length %></strong>
+          project(s).
+        </p>
+
+        <div class="projects-grid">
+
+          <% volunteerProjects.forEach((project) => { %>
+
+            <article class="project-card">
+
+              <h3>
+                <a href="/project/<%= project.project_id %>">
+                  <%= project.title %>
+                </a>
+              </h3>
+
+              <p><%= project.description %></p>
+
+              <p>
+                <strong>Organization:</strong>
+                <%= project.organization_name %>
+              </p>
+
+              <p>
+                <strong>Date:</strong>
+                <%= new Date(project.date).toLocaleDateString("en-US") %>
+              </p>
+
+              <p>
+                <strong>Location:</strong>
+                <%= project.location %>
+              </p>
+
+              <form
+                action="/project/<%= project.project_id %>/unvolunteer"
+                method="POST">
+
+                <button type="submit">
+                  Remove Volunteering
+                </button>
+
+              </form>
+
+            </article>
+
+          <% }) %>
+
+        </div>
+
+      <% } else { %>
+
+        <p>
+          You have not volunteered for any projects yet.
+        </p>
+
+        <p>
+          <a href="/projects">
+            Browse Available Projects
+          </a>
+        </p>
+
+      <% } %>
+
+    </section>
+
+    <!-- W05: Administrator section -->
     <% if (isAdmin) { %>
+
       <section>
         <h2>Administration</h2>
-        <a href="/users">View Registered Users</a>
+
+        <a href="/users">
+          View Registered Users
+        </a>
       </section>
+
     <% } %>
 
-    <p><a href="/">Back to Home</a></p>
+    <!-- Navigation -->
+    <p>
+      <a href="/">Back to Home</a>
+    </p>
 
+    <!-- Logout -->
     <form action="/logout" method="POST">
-      <button type="submit">Log Out</button>
+
+      <button type="submit">
+        Log Out
+      </button>
+
     </form>
+
   </main>
+
 </body>
+
 </html>

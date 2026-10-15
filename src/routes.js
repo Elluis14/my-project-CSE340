@@ -79,6 +79,11 @@ import {
 } from './controllers/errors.js';
 
 
+import {
+  processVolunteer,
+  processUnvolunteer
+} from './controllers/volunteers.js';
+
 // ========================================
 // EXPRESS ROUTER
 // ========================================
@@ -271,6 +276,20 @@ router.get(
   requireLogin,
   requireRole('admin'),
   showUsers
+);
+
+// Register for a volunteer project
+router.post(
+  '/project/:id/volunteer',
+  requireLogin,
+  processVolunteer
+);
+
+// Remove volunteering from a project
+router.post(
+  '/project/:id/unvolunteer',
+  requireLogin,
+  processUnvolunteer
 );
 
 // ========================================

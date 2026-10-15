@@ -1,3 +1,4 @@
+
 <%- include("partials/header", { title: title }) %>
 
 <main class="page-container">
@@ -8,23 +9,19 @@
 
       <% if (isAdmin) { %>
         <div class="page-actions">
-          <a href="/edit-project/<%= projectDetails.project_id %>" class="btn btn-primary">
+          <a href="/edit-project/<%= projectDetails.project_id %>"
+             class="btn btn-primary">
             Edit Project
           </a>
         </div>
       <% } %>
 
-      <h1>
-        <%= projectDetails.title %>
-      </h1>
+      <h1><%= projectDetails.title %></h1>
 
-      <p>
-        <%= projectDetails.description %>
-      </p>
+      <p><%= projectDetails.description %></p>
 
       <p>
         <strong>Organization:</strong>
-
         <a href="/organization/<%= projectDetails.organization_id %>">
           <%= projectDetails.organization_name %>
         </a>
@@ -40,6 +37,61 @@
         <%= projectDetails.location %>
       </p>
 
+      <!-- =====================================
+           W06: VOLUNTEERING FEATURE
+           ===================================== -->
+
+      <section class="volunteering-section">
+
+        <h2>Volunteering</h2>
+
+        <% if (isLoggedIn) { %>
+
+          <% if (isVolunteering) { %>
+
+            <p>You are volunteering for this project.</p>
+
+            <form
+              action="/project/<%= projectDetails.project_id %>/unvolunteer"
+              method="POST">
+
+              <button type="submit" class="btn btn-secondary">
+                Remove Volunteering
+              </button>
+
+            </form>
+
+          <% } else { %>
+
+            <p>Would you like to volunteer for this project?</p>
+
+            <form
+              action="/project/<%= projectDetails.project_id %>/volunteer"
+              method="POST">
+
+              <button type="submit" class="btn btn-primary">
+                Volunteer for This Project
+              </button>
+
+            </form>
+
+          <% } %>
+
+        <% } else { %>
+
+          <p>
+            Please
+            <a href="/login">log in</a>
+            to volunteer for this project.
+          </p>
+
+        <% } %>
+
+      </section>
+
+      <!-- =====================================
+           PROJECT CATEGORIES
+           ===================================== -->
 
       <section class="project-categories">
 
@@ -52,11 +104,9 @@
             <% categories.forEach((category) => { %>
 
               <article class="category-card">
-
                 <a href="/category/<%= category.category_id %>">
                   <%= category.name %>
                 </a>
-
               </article>
 
             <% }) %>
@@ -65,27 +115,20 @@
 
         <% } else { %>
 
-          <p>
-            This project does not have any categories.
-          </p>
+          <p>This project does not have any categories.</p>
 
         <% } %>
 
       </section>
 
-
     <% } else { %>
 
       <h1>Project Not Found</h1>
 
-      <p>
-        The requested project could not be found.
-      </p>
+      <p>The requested project could not be found.</p>
 
     <% } %>
 
   </section>
 
 </main>
-
-<%- include("partials/footer") %>

@@ -8,6 +8,10 @@ import {
 } from '../models/projects.js';
 
 import {
+  isUserVolunteering
+} from '../models/volunteers.js';
+
+import {
   getAllCategories,
   getCategoriesByProjectId
 } from '../models/categories.js';
@@ -193,6 +197,7 @@ const showProjectsPage = async (req, res) => {
 
 // ========================================
 // SHOW PROJECT DETAILS
+// W06: VOLUNTEERING STATUS
 // ========================================
 
 const showProjectDetailsPage = async (req, res) => {
@@ -210,10 +215,26 @@ const showProjectDetailsPage = async (req, res) => {
   const categories =
     await getCategoriesByProjectId(projectId);
 
+  // W06: Identify the currently authenticated user.
+  const user = req.session?.user || null;
+
+  // By default, a visitor is not volunteering.
+  let isVolunteering = false;
+
+  // Check volunteering status only for logged-in users.
+  if (user) {
+    isVolunteering = await isUserVolunteering(
+      user.user_id,
+      projectDetails.project_id
+    );
+  }
+
+  // Send all information to the EJS view.
   res.render('project', {
     title: projectDetails.title,
     projectDetails,
-    categories
+    categories,
+    isVolunteering
   });
 };
 
